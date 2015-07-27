@@ -101,6 +101,19 @@ def markov_chain(string_ls):
 
 def markov_generate(word_dict):
     #dict should follow the format: {"Word": {"Next_word1": prob, "Next_word2": prob}}
+    
+    def choose_randomly(probability_dict):
+        #dict should follow the format: {item1: prob, item2: prob}
+        prob_sum = 0
+        for v in probability_dict.values():
+            prob_sum += v
+        r = random.randrange(prob_sum)
+        sum_so_far = 0
+        for k, v in probability_dict.iteritems():
+            sum_so_far += v
+            if(r < sum_so_far):
+                return k
+            
     last_word = "[BEGIN]"
     result = ""
     while last_word != "[END]":
@@ -109,17 +122,6 @@ def markov_generate(word_dict):
     result = result[:-6]
     return result
 
-def choose_randomly(probability_dict):
-    #dict should follow the format: {item1: prob, item2: prob}
-    prob_sum = 0
-    for v in probability_dict.values():
-        prob_sum += v
-    r = random.randrange(prob_sum)
-    sum_so_far = 0
-    for k, v in probability_dict.iteritems():
-        sum_so_far += v
-        if(r < sum_so_far):
-            return k
                 
 
 s = split_string(s)
